@@ -21,9 +21,9 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rake"
   s.add_development_dependency "mongoid", "~> 3.0.0.rc"
-  s.add_development_dependency "mocha", "~> 0.10.0"
+  s.add_development_dependency "mocha", "~> 0.11.0"
   s.add_development_dependency "rspec", "~> 2.8"
-  s.add_development_dependency "guard", "~> 0.10"
+  s.add_development_dependency "guard", "~> 1.1.1"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "guard-spork"
   s.add_development_dependency "spork", "~> 0.9.0.rc"
