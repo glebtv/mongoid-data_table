@@ -20,8 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari", "~> 0.13.0"
 
   s.add_development_dependency "rake"
-  s.add_development_dependency "bson_ext", "~> 1.5"
-  s.add_development_dependency "mongoid", "~> 2.4"
+  s.add_development_dependency "mongoid", "~> 3.0.0.rc"
   s.add_development_dependency "mocha", "~> 0.10.0"
   s.add_development_dependency "rspec", "~> 2.8"
   s.add_development_dependency "guard", "~> 0.10"

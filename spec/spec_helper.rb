@@ -20,14 +20,15 @@ Spork.prefork do
 
   LOGGER = ActiveSupport::BufferedLogger.new($stdout)
 
-  def database_id
-    ENV["CI"] ? "mongoid_data_table_#{Process.pid}" : "mongoid_data_table_test"
-  end
-
-  Mongoid.configure do |config|
-    config.master = Mongo::Connection.new.db(database_id)
-    config.logger = nil
-  end
+  #def database_id
+  #  ENV["CI"] ? "mongoid_data_table_#{Process.pid}" : "mongoid_data_table_test"
+  #end
+  #
+  #Mongoid.configure do |config|
+  #  config.master = Mongo::Connection.new.db(database_id)
+  #  config.logger = nil
+  #end
+  Mongoid.load!(File.join(File.dirname(__FILE__), "mongoid.yml"))
 
   if defined? ::Mongoid
     require 'kaminari/models/mongoid_extension'
@@ -41,7 +42,12 @@ Spork.prefork do
   RSpec.configure do |config|
     config.mock_with(:mocha)
     config.after(:suite) do
-      Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+      session = Mongoid::Sessions.default
+      collections = session["system.namespaces"].find(name: { "$not" => /system|\$/ }).to_a
+      collections.each do |collection|
+        _, name = collection["name"].split(".", 2)
+        session[name].drop
+      end
     end
   end
 end

@@ -11,7 +11,7 @@ module Admin
     field :state
 
     ## associations ##
-    referenced_in :category
+    belongs_to :category
 
     ## data_table ##
     data_table_options.merge!({

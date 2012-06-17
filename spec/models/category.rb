@@ -6,6 +6,6 @@ class Category
   field :name
 
   ## associations ##
-  references_many :providers
+  has_many :providers
 
 end
