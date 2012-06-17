@@ -42,12 +42,7 @@ Spork.prefork do
   RSpec.configure do |config|
     config.mock_with(:mocha)
     config.after(:suite) do
-      session = Mongoid::Sessions.default
-      collections = session["system.namespaces"].find(name: { "$not" => /system|\$/ }).to_a
-      collections.each do |collection|
-        _, name = collection["name"].split(".", 2)
-        session[name].drop
-      end
+      Mongoid::Config.purge!
     end
   end
 end
